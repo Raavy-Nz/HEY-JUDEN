@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hey Jude - Lyrics</title>
+  <style>
+    body {
+      background: url('Foto THBTL.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .lyrics {
+  font-size: 2em;
+  text-align: center;
+  border-right: 3px solid #005BAC;
+  width: 0;
+  overflow: hidden;
+  animation: typing 5s steps(50, end), blink-caret 0.75s step-end infinite;
+  max-width: 80vw;
+  white-space: normal;
+  color: #005BAC;
+  text-shadow: 0 0 5px #005BAC, 0 0 10px #005BAC;
+  }
+
+
+    .watermark {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+      font-size: 5em;
+      color: #ffffffa0;
+      user-select: none;
+    }
+
+    audio {
+      position: absolute;
+      bottom: 50px;
+      width: 300px;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: white; }
+    }
+
+  .logo-fixed-top {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.logo-fixed-top .logo {
+  height: 75px;
+  width: auto;
+  user-select: none;
+}
+
+.logo-persib {
+  height: 75px;
+}
+
+.logo-untirta {
+  height: 55px; /* Kamu bisa ubah jadi 50px jika ingin benar-benar sama */
+  margin-top: 2px; /* Untuk menyesuaikan posisi agar sejajar */
+}
+
+  </style>
+</head>
+<body>
+   <!-- Logo Persib & Untirta di pojok kiri atas -->
+  <div class="logo-fixed-top">
+  <img src="persib.png" alt="Logo Persib" class="logo logo-persib">
+  <img src="untirta.png" alt="Logo Untirta" class="logo logo-untirta">
+</div>
+  
+  <div class="lyrics" id="lyrics"></div>
+
+  <div class="watermark">@Raavy</div>
+
+  <audio id="audio" autoplay controls>
+    <source src="Hey Jude - THE BEATLES (Lyrics) - Migs.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <audio id="typeSound">
+    <source src="Keyboard, typing sound effect - Neve Admoni.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const lines = [
+      { text: "Hey Jude, don't make it bad", time: 0 },
+      { text: "Take a sad song and make it better", time: 6000 },
+      { text: "Remember to let her into your heart", time: 14000 },
+      { text: "Then you can start to make it better", time: 18000 },
+      { text: "Hey Jude, don't be afraid", time: 26000 },
+      { text: "You were made to go out and get her", time: 32000 },
+      { text: "The minute you let her under your skin", time: 39000 },
+      { text: "Then you begin to make it better", time: 44000 },
+      { text: "And anytime you feel the pain, hey Jude, refrain", time: 52000 },
+      { text: "Don't carry the world upon your shoulders", time: 59000 },
+      { text: "For well you know that it's a fool who plays it cool", time: 69000 },
+      { text: "By making his world a little colder", time: 76000 },
+      { text: "     R A A V Y  V O L D I G O A D     ", time: 83000 }
+    ];
+
+    let index = 0;
+    const lyricsDiv = document.getElementById('lyrics');
+    const typeSound = document.getElementById('typeSound');
+
+    function showNextLine() {
+      if (index >= lines.length) return;
+      lyricsDiv.style.animation = 'none';
+      lyricsDiv.offsetHeight;
+      lyricsDiv.textContent = lines[index].text;
+      lyricsDiv.style.width = '0';
+      lyricsDiv.style.animation = 'typing 5s steps(50, end), blink-caret 0.75s step-end infinite';
+      typeSound.currentTime = 0;
+      typeSound.play();
+      const nextTime = (index + 1 < lines.length) ? lines[index + 1].time - lines[index].time : 5000;
+      index++;
+      setTimeout(showNextLine, nextTime);
+    }
+
+    // Start immediately
+    showNextLine();
+  </script>
+</body>
+</html>
